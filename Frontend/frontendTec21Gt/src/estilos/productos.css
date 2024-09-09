@@ -1,0 +1,8 @@
+.formatoIngreso{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+

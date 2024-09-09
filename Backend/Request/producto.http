@@ -1,0 +1,67 @@
+POST http://localhost:4000/productos
+Content-Type: application/json
+
+{
+    "noProducto" : 1,
+    "nombreProducto" : "Audifono KZ EDX PRO",
+    "marca" : "KZ",
+    "modelo" : "EDX PRO", 
+    "descripcionExtra" : "Gran calidad de audio",
+    "color": "negro",
+    "precio": 150.00,
+    "existencia": 4
+}
+
+###
+GET http://localhost:4000/productos
+
+###
+GET http://localhost:4000/equipos
+
+###
+POST  http://localhost:4000/equipos
+Content-Type: application/json
+
+{
+    "numeroSerie" : "SDC5612",
+    "marca" : "hp",
+    "modelo" : "Envy I6",
+    "procesador" : "intel Core i7",
+    "ram" : "16GB",
+    "almacenamiento" : "1TB",
+    "tipoEquipo" : "Computadora laptop",
+    "otrasCaracteristicas" : "Sistema Operativo Windows",
+    "passwordEquipo" : "456123",
+    "problema" : "Esta lenta"
+}
+
+###
+POST http://localhost:4000/usuarios
+Content-Type: application/json
+
+{
+    "nombreUsuario": "prueba 6",
+    "usuarioEmpleado": "seis",
+    "passwordEmpleado": "666",
+    "tipoEmpleado": "vendedor"
+}
+
+###
+GET http://localhost:4000/usuarios
+
+###
+PUT http://localhost:4000/usuarios/7
+Content-Type: application/json
+{
+    "passwordEmpleado": "111",
+    "tipoEmpleado": "vendedor"
+
+}
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+{
+    "usuarioEmpleado": "as",
+    "passwordEmpleado": "as"
+}

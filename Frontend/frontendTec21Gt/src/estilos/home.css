@@ -1,0 +1,9 @@
+.contenedorHome{
+    display: flex;
+}
+
+.homeLista{
+    display: flex;
+    flex-direction: column;
+    padding: 70px;
+}
