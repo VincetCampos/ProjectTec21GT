@@ -6,7 +6,7 @@ export const MainEmpleado = () => {
     useEffect(()=>{
 
         (async () =>{
-            let fetchEmpleado = await fetch("http://localhost:4000/usuarios")
+            let fetchEmpleado = await fetch("http://localhost:4000/usuarios", {credentials: 'include'})
             let dataEmpleado = await fetchEmpleado.json()
             SetEmpleado(dataEmpleado)
         })()

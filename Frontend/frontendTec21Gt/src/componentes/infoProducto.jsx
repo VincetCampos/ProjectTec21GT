@@ -10,7 +10,7 @@ export const InfoProducto = () => {
     useEffect( () => {
 
         (async () =>{
-            let fetchProduc = await fetch(`http://localhost:4000/Productos/${noProducto}`)
+            let fetchProduc = await fetch(`http://localhost:4000/Productos/${noProducto}`, {credentials: 'include'})
             let dataProduct = await fetchProduc.json()
             SetProducto(dataProduct)
         })()

@@ -9,7 +9,7 @@ export const Catalogo = () => {
     useEffect( () => {
 
         (async () =>{
-            let fetchProduc = await fetch("http://localhost:4000/Productos")
+            let fetchProduc = await fetch("http://localhost:4000/Productos", {credentials: 'include'})
             let dataProduct = await fetchProduc.json()
             SetProducto(dataProduct)
         })()

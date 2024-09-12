@@ -6,16 +6,13 @@ import { useNavigate } from 'react-router-dom';
 export const LoginPage = () => {
 
     const { register, handleSubmit } = useForm();
-    const { signin, isAuthenticated } = useAuth();
-    const navegate = useNavigate();
+    const { signin } = useAuth();
+
+
     const onSubmit = handleSubmit(async (data) => {
         console.log(data);
         signin(data);
     });
-
-    useEffect(() => {
-        if(isAuthenticated) navegate("/")
-    }, [isAuthenticated])
 
     return (
         <div>

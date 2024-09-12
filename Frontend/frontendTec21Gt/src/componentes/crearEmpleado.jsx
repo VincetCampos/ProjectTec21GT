@@ -29,7 +29,8 @@ export const CrearEmpleado = ()=>{
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify(empleado)
+            body: JSON.stringify(empleado),
+            credentials: 'include'
         })
         let respJson = await fetchResp.json()
         console.log(respJson)

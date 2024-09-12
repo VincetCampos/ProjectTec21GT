@@ -1,14 +1,30 @@
 const jwt = require('jsonwebtoken')
 const TOKEN_SECRET = require('../config.js')
 
-function authRequiere(req, res, next){
-    const { token } = req.cookies;
+/*function authRequiere(req, res, next){
+    const { token } = req.cookies
     
     if(!token) return res.status(401).json({message: "authorization denied"})
 
     
     jwt.verify(token, TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(403).send("Token inválido.");
+        if (err) return res.status(403).send("Token invalido.");
+            
+        req.user = user;
+        //console.log(user)
+        next();
+    });
+
+}*/
+
+const authRequiere = (req, res, next) => {
+    const { token } = req.cookies
+    
+    if(!token) return res.status(401).json({message: "authorization denied"})
+
+    
+    jwt.verify(token, TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).send("Token invalido.");
             
         req.user = user;
         //console.log(user)

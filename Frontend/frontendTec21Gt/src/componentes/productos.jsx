@@ -34,7 +34,8 @@ export const Productos = ()=>{
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify(producto)
+            body: JSON.stringify(producto),
+            credentials: 'include'
         })
         let respJson = await fetchResp.json()
         console.log(respJson)

@@ -35,7 +35,8 @@ export const Equipos = () =>{
             headers: {
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify(equipo)
+            body: JSON.stringify(equipo),
+            credentials: 'include'
         })
         let respJson = await fetchResp.json()
         console.log(respJson)

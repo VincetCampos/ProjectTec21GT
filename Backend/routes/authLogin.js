@@ -52,5 +52,40 @@ router.post('/logout', (req, res) => {
   return res.sendStatus(200);
 })
 
+router.get('/verify', async (req, res) => {
+  //const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.cookies.token;
+  if (!token) {
+      return res.status(403).json({ message: 'No token provided' });
+  }
 
+  /*jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+          return res.status(403).json({ message: 'Failed to authenticate token' });
+      }
+      res.json({ user: decoded });
+
+
+  });*/
+  try {
+    const decoded = jwt.verify(token, secretKey);
+
+    // Conectarse a la base de datos y buscar el usuario por su ID
+    const connection = await sql.connect(config);
+    const result = await connection
+        .request()
+        .input('noEmpleado', sql.Int, decoded.noEmpleado)
+        .query('SELECT noEmpleado, usuarioEmpleado FROM Empleado WHERE noEmpleado = @noEmpleado');
+
+    if (result.recordset.length > 0) {
+        const user = result.recordset[0];
+        res.json({ user });
+    } else {
+        res.status(404).send('Usuario no encontrado');
+    }
+  } catch (err) {
+      console.error(err);
+      res.status(401).send('Failed to authenticate token');
+  }
+});
 module.exports = router;
