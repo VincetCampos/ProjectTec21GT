@@ -8,10 +8,10 @@ router.get('/', async (req, res, next) => {
 
   try {
     await sql.connect(config)
-    const productos = await sql.query(`Select p.noProducto, p.nombreProducto, dt.precio, SUM(dt.cantidad)as existencias from Producto as p
+    const productos = await sql.query(`Select p.noProducto, p.nombreProducto, p.descripcionExtra, SUM(dt.cantidad)as existencias from Producto as p
                                       Join DetalleProducto as dt
                                       On dt.noProducto = p.noProducto
-                                      Group by p.noProducto, p.nombreProducto, dt.precio`)
+                                      Group by p.noProducto, p.nombreProducto, p.descripcionExtra`)
     data = productos.recordset
     await sql.close()
 
@@ -81,4 +81,27 @@ router.post("/", async (req, res, next)=>{
     res.send(data)
   });
   
+  router.get('/detalleProducto/:noVenta', async (req, res, next) => {
+    let data = []
+    let { noVenta } = req.params
+
+    try {
+      const connection = await sql.connect(config)
+      //ejecutamos la consulta
+      const resultado = await connection.request()
+                                                .input("noVenta", sql.Int, noVenta)
+                                                .query(`Select dv.noDetalleVenta, p.nombreProducto, p.marca, dv.cantidad, dv.precioUnitario from DetalleVenta as dv
+                                                        JOIN Producto as p On p.noProducto = dv.noProducto
+                                                        Where dv.noVenta = @noVenta`)
+      data = resultado.recordset
+      await sql.close()
+  
+    } catch (err) {
+      console.error(err)
+      data = err
+      res.statusCode = 500
+    }
+  
+    res.send(data)
+  });
   module.exports = router;

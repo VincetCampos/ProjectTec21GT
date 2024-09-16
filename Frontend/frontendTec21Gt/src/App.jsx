@@ -7,6 +7,9 @@ import { InfoProducto } from "./componentes/infoProducto"
 import Narbar from "./componentes/Narbar"
 import { MainEmpleado } from "./componentes/mainEmpleado"
 import { CrearEmpleado } from "./componentes/crearEmpleado"
+import { Ventas } from "./componentes/ventas"
+import { CrearVentas } from "./componentes/crearVentas"
+import { InfoVenta } from "./componentes/infoVenta"
 import { LoginPage } from "./pages/loginPage"
 import { AuthProvider } from "./context/AuthContext"
 import ProtectedRoute from "./ProtectedRoutes"
@@ -28,6 +31,9 @@ function App() {
                 <Route path="/Producto/:noProducto" element={ <InfoProducto/>}></Route>
                 <Route path="/Empleado" element={ <MainEmpleado/> }></Route>
                 <Route path="/Empleado/CrearEmpleado" element={ <CrearEmpleado/> }></Route>
+                <Route path="/Ventas" element={ <Ventas/>}></Route>
+                <Route path="/Ventas/CrearVentas" element={ <CrearVentas/>}></Route>
+                <Route path="/Ventas/:noVenta" element={ <InfoVenta/>}></Route>
               </Route>
             </Routes>
           </BrowserRouter>

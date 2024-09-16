@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 
 export const InfoProducto = () => {
     const { noProducto } = useParams();
-
-    // Aquí puedes cargar los detalles del producto usando el noProducto
-    // por ejemplo, buscando en un array de productos o haciendo una petición a un API.
+    
     const [producto, SetProducto] = useState([])
     useEffect( () => {
 

@@ -10,6 +10,7 @@ var productoRouter = require('./routes/productos')
 const equipoRouter = require('./routes/equipos')
 const usuarioRouter = require('./routes/usuarios')
 const loginRouter = require('./routes/authLogin')
+const ventaRouter = require('./routes/ventas')
 const authRequiere = require('./middleware/validarToken')
 
 var app = express();
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/productos', authRequiere, productoRouter);
 app.use('/equipos', authRequiere, equipoRouter)
 app.use('/usuarios', authRequiere, usuarioRouter)
+app.use('/ventas', authRequiere, ventaRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

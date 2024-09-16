@@ -21,6 +21,9 @@ function Narbar() {
                 <li>
                     <Link to='/Empleado'>Empleados</Link>
                 </li>
+                <li>
+                    <Link to='/Ventas'> Ventas</Link>
+                </li>
                 <Outlet/>
             </ul>
         </nav>

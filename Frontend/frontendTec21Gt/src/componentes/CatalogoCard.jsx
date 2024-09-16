@@ -8,9 +8,9 @@ function CatalogoCard ({ producto }) {
                 </h1>
             </header>
             <p>
-                Precio: {producto.precio}
+                Descripcion Extra: {producto.descripcionExtra}
             </p>
-            <p>Existencia: {producto.existencias}</p>
+            <p>Existencia: {producto.existencias === 0 ? "Sin existencias" : producto.existencias}</p>
         </div>
     );
 
