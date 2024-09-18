@@ -6,10 +6,10 @@ export const InfoVenta = () =>{
     
     const [ventas, setVentas] = useState([])
     const [detalleVenta, setDetalleVenta] = useState({
-        noVenta: ventas.noVenta,
+        noVenta: 0,
         noProducto: 0,
         color: "",
-        fechaVenta: ventas.fechaVenta,
+        fechaVenta: "",
         cantidad: 0,
         precioUnitario: 0
     })
@@ -59,6 +59,21 @@ export const InfoVenta = () =>{
         })
         let respJson = await fetchResp.json()
         console.log(respJson)
+
+        if (fetchResp.ok) {
+            let fetchDetalleProduct = await fetch(`http://localhost:4000/productos/detalleProducto/${noVenta}`, {credentials: 'include'})
+            let dataDetalleProduct = await fetchDetalleProduct.json()
+            setDetalleProducto(dataDetalleProduct)
+
+            setDetalleVenta({
+                noVenta: detalleVenta.noVenta,
+                noProducto: 0,
+                color: "",
+                fechaVenta: detalleVenta.fechaVenta,
+                cantidad: 0,
+                precioUnitario: 0
+            });
+        }
     }
 
     return(

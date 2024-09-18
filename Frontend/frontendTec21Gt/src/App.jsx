@@ -10,6 +10,8 @@ import { CrearEmpleado } from "./componentes/crearEmpleado"
 import { Ventas } from "./componentes/ventas"
 import { CrearVentas } from "./componentes/crearVentas"
 import { InfoVenta } from "./componentes/infoVenta"
+import { Solicitud } from "./componentes/mainSolicitudes"
+import { InfoSolicitud } from "./componentes/infoSolicitud"
 import { LoginPage } from "./pages/loginPage"
 import { AuthProvider } from "./context/AuthContext"
 import ProtectedRoute from "./ProtectedRoutes"
@@ -34,6 +36,8 @@ function App() {
                 <Route path="/Ventas" element={ <Ventas/>}></Route>
                 <Route path="/Ventas/CrearVentas" element={ <CrearVentas/>}></Route>
                 <Route path="/Ventas/:noVenta" element={ <InfoVenta/>}></Route>
+                <Route path="/Solicitud" element={ <Solicitud/> }></Route>
+                <Route path="/Solicitud/:noSolicitud" element={ <InfoSolicitud/>}></Route>
               </Route>
             </Routes>
           </BrowserRouter>

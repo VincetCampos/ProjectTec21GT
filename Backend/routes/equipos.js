@@ -3,25 +3,6 @@ const router = express.Router();
 const sql = require('mssql')
 const {config} = require("../config/sql_server")
 
-/* GET users listing. */
-router.get('/', async (req, res, next) => {
-  let data = []
-
-  try {
-    await sql.connect(config)
-    const equipos = await sql.query(`select equipoSerial, modelo, tipoEquipo, problema from Equipo`)
-    data = equipos.recordset
-    await sql.close()
-
-  } catch (err) {
-    console.error(err)
-    data = err
-    res.statusCode = 500
-  }
-
-  res.send(data)
-});
-
 router.post("/", async (req, res, next)=>{
   const Equipos = req.body;
   let resultado = {}
@@ -40,7 +21,19 @@ router.post("/", async (req, res, next)=>{
                                   .input('passwordEquipo', sql.VarChar, Equipos.passwordEquipo)
                                   .input('problema', sql.VarChar, Equipos.problema)
                                   .query(`Insert Into Equipo (equipoSerial, marca, modelo, procesador, ram, almacenamiento, tipoEquipo, otrasCaracteristicas, passwordEquipo, problema)
-                                  values (@equipoSerial, @marca, @modelo, @procesador, @ram, @almacenamiento, @tipoEquipo, @otrasCaracteristicas, @passwordEquipo, @problema)`)
+                                          OUTPUT INSERTED.noEquipo AS equipoNo
+                                          values (@equipoSerial, @marca, @modelo, @procesador, @ram, @almacenamiento, @tipoEquipo, @otrasCaracteristicas, @passwordEquipo, @problema)`)
+    if(result.recordset.length > 0){
+        const equipoNo = result.recordset[0].equipoNo
+        const resultadoSolicitud = await connection.request()
+                                                  .input('noEquipo', sql.Int, equipoNo)
+                                                  .input('fechaIngreso', sql.Date, Equipos.fechaIngreso)
+                                                  .input('fechaEntrega', sql.Date, Equipos.fechaEntrega)
+                                                  .input('presupuesto', sql.Money, Equipos.presupuesto)
+                                                  .input('estadoSolicitud', sql.VarChar, Equipos.estadoSolicitud)
+                                                  .query(`Insert Into Solicitud (noEquipo, fechaIngreso, fechaEntrega, presupuesto, estadoSolicitud)
+                                                          Values (@noEquipo, @fechaIngreso, @fechaEntrega, @presupuesto, @estadoSolicitud)`)
+    }
     resultado = result.rowsAffected
     await connection.close()
 

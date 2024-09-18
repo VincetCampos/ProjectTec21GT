@@ -18,6 +18,11 @@ export const Catalogo = () => {
 
     return (
         <>
+            <div>
+                <Link to={"/Producto"}>
+                    <button>Ingresar Nuevo Producto</button>
+                </Link>
+            </div>
             <div className="grid grid-cols-3 gap-2 m-6" >
                 {producto.map((producto) => (
                     <Link to={`/producto/${producto.noProducto}`} key={producto.noProducto}>

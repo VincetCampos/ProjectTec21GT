@@ -14,7 +14,11 @@ export const Equipos = () =>{
         tipoEquipo : "",
         otrasCaracteristicas : "",
         passwordEquipo : "",
-        problema : ""
+        problema : "",
+        fechaIngreso: "",
+        fechaEntrega: "",
+        presupuesto: "",
+        estadoSolicitud: ""
     })
 
     const cambioDatos = (e) =>{
@@ -117,12 +121,44 @@ export const Equipos = () =>{
                         className="border-2 border-b-sky-500 rounded-md h-20 w-80"></textarea>
             </div>
             <div className="flex flex-col">
-                <label htmlFor="problema">Que problema tiene su equipo</label>
+                <label htmlFor="problema">Que problema tiene el equipo</label>
                 <textarea name="problema" type="text" 
                         id="problema"
                         value={equipo.problema}
                         onChange={cambioDatos}
                         className="border-2 border-b-sky-500 rounded-md h-20 w-80"></textarea>
+            </div>
+            <div className="flex flex-col">
+                <label htmlFor="fechaIngreso">Fecha de ingreso del equipo</label>
+                <input name="fechaIngreso" type="text" 
+                        id="fechaIngreso"
+                        value={equipo.fechaIngreso}
+                        onChange={cambioDatos}
+                        className="border-2 border-b-sky-500 rounded-md"/>
+            </div>
+            <div className="flex flex-col">
+                <label htmlFor="fechaEntrega">Fecha de entrega del equipo</label>
+                <input name="fechaEntrega" type="text" 
+                        id="fechaEntrega"
+                        value={equipo.fechaEntrega}
+                        onChange={cambioDatos}
+                        className="border-2 border-b-sky-500 rounded-md"/>
+            </div>
+            <div className="flex flex-col">
+                <label htmlFor="presupuesto">presupuesto del mantenimiento/reparacion</label>
+                <input name="presupuesto" type="text" 
+                        id="presupuesto"
+                        value={equipo.presupuesto}
+                        onChange={cambioDatos}
+                        className="border-2 border-b-sky-500 rounded-md"/>
+            </div>
+            <div className="flex flex-col">
+                <label htmlFor="estadoSolicitud">Estado de la solicitud</label>
+                <input name="estadoSolicitud" type="text" 
+                        id="estadoSolicitud"
+                        value={equipo.estadoSolicitud}
+                        onChange={cambioDatos}
+                        className="border-2 border-b-sky-500 rounded-md"/>
             </div>
             <button className="rounded-full bg-green-500 place-self-end px-2 py-2">Guardar</button>
         </form>

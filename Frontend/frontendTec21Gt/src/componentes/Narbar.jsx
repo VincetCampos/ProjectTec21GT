@@ -13,10 +13,7 @@ function Narbar() {
                     <Link to= '/Catalogo'>Catalogo</Link>
                 </li>
                 <li>
-                    <Link to= '/Producto'>Ingreso Producto</Link>
-                </li>
-                <li>
-                    <Link to= '/equipos'>Ingreso equipos</Link>
+                    <Link to= '/Solicitud'>Solicitudes R/M</Link>
                 </li>
                 <li>
                     <Link to='/Empleado'>Empleados</Link>

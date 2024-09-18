@@ -11,6 +11,8 @@ const equipoRouter = require('./routes/equipos')
 const usuarioRouter = require('./routes/usuarios')
 const loginRouter = require('./routes/authLogin')
 const ventaRouter = require('./routes/ventas')
+const solicitudRouter = require('./routes/solicitudes')
+const repuestoRouter = require('./routes/repuestos')
 const authRequiere = require('./middleware/validarToken')
 
 var app = express();
@@ -36,6 +38,9 @@ app.use('/productos', authRequiere, productoRouter);
 app.use('/equipos', authRequiere, equipoRouter)
 app.use('/usuarios', authRequiere, usuarioRouter)
 app.use('/ventas', authRequiere, ventaRouter)
+app.use('/solicitudes', authRequiere, solicitudRouter)
+app.use('/repuestos', authRequiere, repuestoRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
