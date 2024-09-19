@@ -16,15 +16,17 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const signin = async (user) => {
         try {
             const res = await loginRequest(user);
             const data = await res.json();
-            Cookies.set('token', data.token, { expires: 7 });
-            console.log(data);
+            Cookies.set('token', data.token, { expires: 5/24 });
+            //console.log(data);
             setUser(data);
             setIsAuthenticated(true);
+            setIsAdmin(data.tipoEmpleado === 'Administrador')
             console.log(isAuthenticated)
         } catch (error) {
             console.log(error);
@@ -33,11 +35,12 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const token = Cookies.get('token');
-        console.log(token)
+        //console.log(token)
         if (!token) {
             setIsAuthenticated(false);
             setUser(null)
             setLoading(false)
+            setIsAdmin(false)
             return;
         }
         const verifyToken = async () => {
@@ -56,11 +59,13 @@ export const AuthProvider = ({ children }) => {
                 }
                 setUser(data.user);
                 setIsAuthenticated(true);
-                console.log(isAuthenticated)
+                //console.log(isAuthenticated)
+                setIsAdmin(data.user.tipoEmpleado === 'Administrador')
                 setLoading(false)
             } catch (error) {
                 console.log(error);
                 setIsAuthenticated(false);
+                setIsAdmin(false)
                 setLoading(false)
             }
         }
@@ -72,6 +77,7 @@ export const AuthProvider = ({ children }) => {
             signin,
             user,
             isAuthenticated,
+            isAdmin,
             loading
         }}>
             {children}

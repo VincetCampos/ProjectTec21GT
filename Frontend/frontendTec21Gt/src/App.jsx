@@ -15,6 +15,7 @@ import { InfoSolicitud } from "./componentes/infoSolicitud"
 import { LoginPage } from "./pages/loginPage"
 import { AuthProvider } from "./context/AuthContext"
 import ProtectedRoute from "./ProtectedRoutes"
+import AdminRoute from "./AdminRoutes"
 
 function App() {
   
@@ -31,8 +32,10 @@ function App() {
                 <Route path="/Producto" element = {<Productos/>}/>
                 <Route path="/Equipos" element={ <Equipos/> }/>
                 <Route path="/Producto/:noProducto" element={ <InfoProducto/>}></Route>
-                <Route path="/Empleado" element={ <MainEmpleado/> }></Route>
-                <Route path="/Empleado/CrearEmpleado" element={ <CrearEmpleado/> }></Route>
+                <Route element={<AdminRoute/>}>
+                  <Route path="/Empleado" element={ <MainEmpleado/> }></Route>
+                  <Route path="/Empleado/CrearEmpleado" element={ <CrearEmpleado/> }></Route>
+                </Route>
                 <Route path="/Ventas" element={ <Ventas/>}></Route>
                 <Route path="/Ventas/CrearVentas" element={ <CrearVentas/>}></Route>
                 <Route path="/Ventas/:noVenta" element={ <InfoVenta/>}></Route>

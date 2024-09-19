@@ -18,18 +18,18 @@ router.post('/', async (req, res) => {
     const resultadoUsuario = await connection
       .request()
       .input("usuarioEmpleado", sql.VarChar, usuarioEmpleado)
-      .query("SELECT noEmpleado, usuarioEmpleado, passwordEmpleado FROM Empleado WHERE usuarioEmpleado = @usuarioEmpleado");
+      .query("SELECT noEmpleado, usuarioEmpleado, passwordEmpleado, tipoEmpleado FROM Empleado WHERE usuarioEmpleado = @usuarioEmpleado");
 
     if (resultadoUsuario.recordset.length > 0) {
-      const { noEmpleado, usuarioEmpleado, passwordEmpleado: hashedPassword } = resultadoUsuario.recordset[0];
+      const { noEmpleado, usuarioEmpleado, passwordEmpleado: hashedPassword, tipoEmpleado } = resultadoUsuario.recordset[0];
       
       // Comparar la contraseña proporcionada con la almacenada en la base de datos
       const isMatch = await bcrypt.compare(passwordEmpleado, hashedPassword);
 
       if (isMatch) {
-        const token = jwt.sign({ noEmpleado, usuarioEmpleado }, secretKey, { expiresIn: '5h' });
+        const token = jwt.sign({ noEmpleado, usuarioEmpleado, tipoEmpleado }, secretKey, { expiresIn: '5h' });
 
-        const data = { noEmpleado, usuarioEmpleado, token };
+        const data = { noEmpleado, usuarioEmpleado, tipoEmpleado, token };
         console.log(data);
         res.cookie("token", token)
         res.send(data);
@@ -53,20 +53,11 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/verify', async (req, res) => {
-  //const token = req.headers['authorization']?.split(' ')[1];
   const token = req.cookies.token;
   if (!token) {
       return res.status(403).json({ message: 'No token provided' });
   }
 
-  /*jwt.verify(token, secretKey, (err, decoded) => {
-      if (err) {
-          return res.status(403).json({ message: 'Failed to authenticate token' });
-      }
-      res.json({ user: decoded });
-
-
-  });*/
   try {
     const decoded = jwt.verify(token, secretKey);
 
@@ -75,7 +66,7 @@ router.get('/verify', async (req, res) => {
     const result = await connection
         .request()
         .input('noEmpleado', sql.Int, decoded.noEmpleado)
-        .query('SELECT noEmpleado, usuarioEmpleado FROM Empleado WHERE noEmpleado = @noEmpleado');
+        .query('SELECT noEmpleado, usuarioEmpleado, tipoEmpleado FROM Empleado WHERE noEmpleado = @noEmpleado');
 
     if (result.recordset.length > 0) {
         const user = result.recordset[0];

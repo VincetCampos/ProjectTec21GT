@@ -14,6 +14,7 @@ const ventaRouter = require('./routes/ventas')
 const solicitudRouter = require('./routes/solicitudes')
 const repuestoRouter = require('./routes/repuestos')
 const authRequiere = require('./middleware/validarToken')
+const verifyAdmin = require('./middleware/verificarAdmin')
 
 var app = express();
 
@@ -36,7 +37,7 @@ app.use('/login', loginRouter)
 app.use('/', indexRouter);
 app.use('/productos', authRequiere, productoRouter);
 app.use('/equipos', authRequiere, equipoRouter)
-app.use('/usuarios', authRequiere, usuarioRouter)
+app.use('/usuarios', authRequiere, verifyAdmin, usuarioRouter)
 app.use('/ventas', authRequiere, ventaRouter)
 app.use('/solicitudes', authRequiere, solicitudRouter)
 app.use('/repuestos', authRequiere, repuestoRouter)
