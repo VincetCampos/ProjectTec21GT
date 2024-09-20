@@ -10,7 +10,7 @@ export const LoginPage = () => {
     const navigate = useNavigate();
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data);
+        //console.log(data);
         signin(data);
     });
 

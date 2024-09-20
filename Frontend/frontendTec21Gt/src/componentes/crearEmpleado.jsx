@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const CrearEmpleado = ()=>{
 
@@ -10,6 +11,7 @@ export const CrearEmpleado = ()=>{
         passwordEmpleado: "",
         tipoEmpleado: ""
     })
+    const navigate = useNavigate();
 
     const cambioDatos = (e) =>{
         e.preventDefault()
@@ -34,6 +36,7 @@ export const CrearEmpleado = ()=>{
         })
         let respJson = await fetchResp.json()
         console.log(respJson)
+        navigate('/Empleado')
     }
 
     return(
@@ -56,7 +59,7 @@ export const CrearEmpleado = ()=>{
             </div>
             <div className="flex flex-col">
                 <label className="ingresoEmpleado" htmlFor="passwordEmpleado">Contraseña del Empleado</label>
-                <input name="passwordEmpleado" type="text" 
+                <input name="passwordEmpleado" type="password" 
                         id="passwordEmpleado"
                         value={empleado.passwordEmpleado}
                         onChange={cambioDatos}

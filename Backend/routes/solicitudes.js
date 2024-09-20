@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
   
     try {
       await sql.connect(config)
-      const solicitud = await sql.query(`Select s.noSolicitud, e.equipoSerial, s.fechaIngreso, s.fechaEntrega, s.presupuesto, estadoSolicitud
+      const solicitud = await sql.query(`Select s.noSolicitud, e.equipoSerial, s.fechaIngreso, s.fechaEntrega, s.presupuesto, s.estadoSolicitud
                                         From Solicitud as s
                                         JOIN Equipo as e On e.noEquipo = s.noEquipo`)
       data = solicitud.recordset
@@ -49,4 +49,35 @@ router.get('/', async (req, res, next) => {
   
     res.send(data)
   });
+
+  router.put('/actualizar/:noSolicitud', async (req, res, next) => {
+    let data = []
+    let { noSolicitud } = req.params
+    let { estadoSolicitud } = req.body
+    try {
+        const connection = await sql.connect(config)
+        const checkResult = await connection.request()
+            .input("noSolicitud", sql.Int, noSolicitud)
+            .query("SELECT noSolicitud FROM Solicitud WHERE noSolicitud = @noSolicitud");
+
+        if (checkResult.recordset.length === 0) {
+            return res.status(404).send({ message: "No se encontró la solicitud" });
+        }
+
+        // Ejecutamos la consulta
+        const resultado = await connection.request()
+            .input("noSolicitud", sql.Int, noSolicitud)
+            .input("estadoSolicitud", sql.VarChar, estadoSolicitud)
+            .query(`UPDATE Solicitud SET estadoSolicitud = @estadoSolicitud WHERE noSolicitud = @noSolicitud`)
+        data = resultado.rowsAffected
+        await sql.close()
+    } catch (err) {
+        console.error(err)
+        data = err
+        res.statusCode = 500
+    }
+
+    res.send(data)
+})
+
 module.exports = router

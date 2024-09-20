@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "../estilos/productos.css"
+import { useNavigate } from "react-router-dom"
 
 export const Productos = ()=>{
 
@@ -23,6 +24,7 @@ export const Productos = ()=>{
             [e.target.name]: e.target.value
         })
     }
+    const navigate = useNavigate();
 
     const formSubmit = async(e) => {
         e.preventDefault()
@@ -39,6 +41,8 @@ export const Productos = ()=>{
         })
         let respJson = await fetchResp.json()
         console.log(respJson)
+
+        navigate('/Catalogo')
     }
 
     return(

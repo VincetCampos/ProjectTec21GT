@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Equipos = () =>{
 
@@ -20,6 +21,8 @@ export const Equipos = () =>{
         presupuesto: "",
         estadoSolicitud: ""
     })
+
+    const navigate = useNavigate();
 
     const cambioDatos = (e) =>{
         e.preventDefault()
@@ -44,6 +47,8 @@ export const Equipos = () =>{
         })
         let respJson = await fetchResp.json()
         console.log(respJson)
+
+        navigate('/Solicitud')
     }
 
     return(

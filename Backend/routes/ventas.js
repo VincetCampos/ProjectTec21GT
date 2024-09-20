@@ -10,9 +10,7 @@ router.get('/', async (req, res, next) => {
       const connection = await sql.connect(config)
       //ejecutamos la consulta
       const resultado = await connection.request()
-                                                .query(`select v.noVenta, v.fechaVenta, v.estado, SUM(dv.subtotal) as total from Venta as v
-                                                JOIN DetalleVenta as dv On v.noVenta = dv.noVenta
-                                                Group By v.noVenta, v.fechaVenta, v.estado`)
+                                                .query(`select noVenta, fechaVenta, estado from Venta`)
       data = resultado.recordset
       await sql.close()
   
@@ -94,4 +92,31 @@ router.get('/', async (req, res, next) => {
     }
     res.send(resultado)
   })
+
+  router.put('/actualizar/:noVenta', async (req, res) => {
+    try {
+        const connection = await sql.connect(config);
+        const {noVenta} = req.params;
+        const {estado} = req.body
+
+        const checkResult = await connection.request()
+            .input("noVenta", sql.Int, noVenta)
+            .query("SELECT noVenta FROM Venta WHERE noVenta = @noVenta");
+
+        if (checkResult.recordset.length === 0) {
+            return res.status(404).send({ message: "No se encontro la venta" });
+        }
+
+        // Update the employee type to "Borrado"
+        const updateResult = await connection.request()
+            .input("noVenta", sql.Int, noVenta)
+            .input("estado", sql.VarChar, estado)
+            .query("UPDATE Venta SET estado = @estado WHERE noVenta = @noVenta");
+
+        res.send({ rowsAffected: updateResult.rowsAffected });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+});
 module.exports = router;

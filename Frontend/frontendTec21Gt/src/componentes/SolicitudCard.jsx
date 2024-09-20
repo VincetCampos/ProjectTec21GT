@@ -11,10 +11,10 @@ function SolicitudCard ({ solicitud }) {
                 </h1>
             </header>
             <p>
-                Fecha de Ingreso: {solicitud.fechaIngreso}
+                Fecha de Ingreso: {new Date(solicitud.fechaIngreso).toLocaleDateString()}
             </p>
             <p>
-                Fecha de Entrega: {solicitud.fechaEntrega}
+                Fecha de Entrega: {new Date(solicitud.fechaEntrega).toLocaleDateString()}
             </p>
             <p>
                 Presupuesto: {solicitud.presupuesto}

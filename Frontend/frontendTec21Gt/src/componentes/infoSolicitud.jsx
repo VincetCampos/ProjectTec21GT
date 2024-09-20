@@ -16,6 +16,7 @@ export const InfoSolicitud = () =>{
         modelo: "",
         precioRepuesto: 0
     });
+    const [nuevoEstado, setNuevoEstado] = useState('');
 
     useEffect(() => {
         const fetchSolicitudData = async () => {
@@ -73,12 +74,10 @@ const formSubmit = async(e) => {
     console.log(respJson)
 
     if (fetchResp.ok) {
-        // Refetch repuesto data after successful POST
         const fetchRepuesto = await fetch(`http://localhost:4000/repuestos/${noSolicitud}`, { credentials: 'include' });
         const dataRepuesto = await fetchRepuesto.json();
         setRepuesto(dataRepuesto);
 
-        // Clear the form
         setAddRepuesto({
             noEquipo: solicitud.noEquipo,
             noSolicitud: solicitud.noSolicitud,
@@ -91,13 +90,30 @@ const formSubmit = async(e) => {
     }
 }
 
+const actualizarEstado = async () => {
+    let fetchResp = await fetch(`http://localhost:4000/solicitudes/actualizar/${noSolicitud}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ estadoSolicitud: nuevoEstado }),
+        credentials: 'include'
+    });
+    if (fetchResp.ok) {
+        const fetchSolicitud = await fetch(`http://localhost:4000/solicitudes/${noSolicitud}`, { credentials: 'include' });
+        const dataSolicitud = await fetchSolicitud.json();
+        setSolicitud(dataSolicitud);
+        alert('El estado de la solicitud ha sido actualizado exitosamente');
+    }
+};
+
     return(
         <div>
             <div>
                 <h1>Solicitud No. {solicitud.noSolicitud}</h1>
                 <h2>Estado: {solicitud.estadoSolicitud}</h2>
-                <h2>Fecha de ingreso del equipo: {solicitud.fechaIngreso}</h2>
-                <h2>Fecha para la entrega del equipo_: {solicitud.fechaEntrega}</h2>
+                <h2>Fecha de ingreso del equipo: {new Date(solicitud.fechaIngreso).toLocaleDateString()}</h2>
+                <h2>Fecha para la entrega del equipo: {new Date(solicitud.fechaEntrega).toLocaleDateString()}</h2>
                 <h2>Presupuesto de la solicitud: {solicitud.presupuesto}</h2>
             </div>
             <div>
@@ -110,6 +126,28 @@ const formSubmit = async(e) => {
                 <h2>Caracteristicas adicionales: {solicitud.otrasCaracteristicas}</h2>
                 <h2>Constraseña del equipo: {solicitud.passwordEquipo}</h2>
                 <h2>Razon para mantenimiento/Reparacion: {solicitud.problema}</h2>
+            </div>
+            <div className="mt-5">
+                <label htmlFor="estado">Actualizar Estado de la Solicitud</label>
+                <select
+                    id="estado"
+                    name="estado"
+                    value={nuevoEstado}
+                    onChange={(e) => setNuevoEstado(e.target.value)}
+                    className="border-2 border-b-sky-500 rounded-md"
+                >
+                    <option value="">Seleccione un estado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Iniciado">Iniciado</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+                <button
+                    onClick={actualizarEstado}
+                    className="rounded-full bg-blue-500 px-2 py-2 ml-2"
+                >
+                    Actualizar Estado
+                </button>
             </div>
             <div>
                 <table className="min-w-full bg-white border border-gray-300">

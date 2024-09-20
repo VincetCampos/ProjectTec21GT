@@ -22,6 +22,10 @@ router.post('/', async (req, res) => {
 
     if (resultadoUsuario.recordset.length > 0) {
       const { noEmpleado, usuarioEmpleado, passwordEmpleado: hashedPassword, tipoEmpleado } = resultadoUsuario.recordset[0];
+
+      if (tipoEmpleado === "Borrado") {
+        return res.status(404).send("Usuario no encontrado.");
+      }
       
       // Comparar la contraseña proporcionada con la almacenada en la base de datos
       const isMatch = await bcrypt.compare(passwordEmpleado, hashedPassword);

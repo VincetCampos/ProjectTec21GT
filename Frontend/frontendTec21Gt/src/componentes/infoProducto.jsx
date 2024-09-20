@@ -26,6 +26,7 @@ export const InfoProducto = () => {
                             <th className="py-2 px-4 border-b">Marca</th>
                             <th className="py-2 px-4 border-b">Modelo</th>
                             <th className="py-2 px-4 border-b">Descripcion Extra</th>
+                            <th className="py-2 px-4 border-b">Color</th>
                             <th className="py-2 px-4 border-b">Precio</th>
                             <th className="py-2 px-4 border-b">Fecha de Ingreso</th>
                             <th className="py-2 px-4 border-b">Cantidad Ingresada</th>
@@ -33,13 +34,14 @@ export const InfoProducto = () => {
                     </thead>
                     <tbody>
                         {producto.map((producto) => (
-                            <tr key={producto.noProducto}>
+                            <tr key={producto.noDetalleProducto}>
                                 <td className="py-2 px-4 border-b">{producto.nombreProducto}</td>
                                 <td className="py-2 px-4 border-b">{producto.marca}</td>
                                 <td className="py-2 px-4 border-b">{producto.modelo}</td>
                                 <td className="py-2 px-4 border-b">{producto.descripcionExtra}</td>
+                                <td className="py-2 px-4 border-b">{producto.color}</td>
                                 <td className="py-2 px-4 border-b">{producto.precio}</td>
-                                <td className="py-2 px-4 border-b">{producto.fechaIngreso}</td>
+                                <td className="py-2 px-4 border-b">{new Date(producto.fechaIngreso).toLocaleDateString()}</td>
                                 <td className="py-2 px-4 border-b">{producto.cantidad}</td>
                             </tr>
                         ))}

@@ -74,10 +74,35 @@ router.get('/', async (req, res, next) => {
   
     res.send(data);
   });
+  
+  router.put('/borrar/:noEmpleado', async (req, res) => {
+    try {
+        const connection = await sql.connect(config);
+        const noEmpleado = req.params.noEmpleado;
 
-  router.put('/:noEmpleado', async (req, res, next)=> {
+        // Check if the employee exists
+        const checkResult = await connection.request()
+            .input("noEmpleado", sql.Int, noEmpleado)
+            .query("SELECT noEmpleado FROM Empleado WHERE noEmpleado = @noEmpleado");
+
+        if (checkResult.recordset.length === 0) {
+            return res.status(404).send({ message: "Employee not found" });
+        }
+
+        // Update the employee type to "Borrado"
+        const updateResult = await connection.request()
+            .input("noEmpleado", sql.Int, noEmpleado)
+            .query("UPDATE Empleado SET tipoEmpleado = 'Borrado' WHERE noEmpleado = @noEmpleado");
+
+        res.send({ rowsAffected: updateResult.rowsAffected });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+});
+  /*router.put('borrar/:noEmpleado', async (req, res, next)=> {
     let data = {}
-    let {passwordEmpleado, tipoEmpleado} = req.body
+
     try{
       //Abrimos la conexion
       const connection = await sql.connect(config)
@@ -87,14 +112,11 @@ router.get('/', async (req, res, next) => {
                           .query("SELECT noEmpleado FROM Empleado WHERE noEmpleado = @noEmpleado")
       if (resultado.recordset.length > 0){
         const result = await connection.request()
-                        .input("passwordEmpleado", sql.VarChar, passwordEmpleado)
-                        .input("tipoEmpleado", sql.VarChar, tipoEmpleado)
-                        .input("noEmpleado", sql.Int, req.params.noEmpleado)
-                        .query("Update Empleado set passwordEmpleado = @passwordEmpleado, tipoEmpleado = @tipoEmpleado Where noEmpleado = @noEmpleado")
-         data = result.rowsAffected
+                        .input("noEmpleado", sql.Int, )
+                        .query("Update Empleado set tipoEmpleado = 'Borrado' Where noEmpleado = @noEmpleado")
+        res.send({ rowsAffected: updateResult.rowsAffected });
       }
-        data = resultado.recordset
-        await sql.close()  
+        //data = resultado.recordset
     }
     catch(err){
       console.error(err)
@@ -102,6 +124,6 @@ router.get('/', async (req, res, next) => {
       res.statusCode = 500 //Internal server error
     }
     res.send(data)
-  });
+  });*/
   
   module.exports = router;

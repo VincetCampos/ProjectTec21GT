@@ -8,8 +8,7 @@ function VentasCard ({ venta }) {
                 </h1>
             </header>
             <p>Estado: {venta.estado}</p>
-            <p>Fecha: {venta.fechaVenta}</p>
-            <p>Total: {venta.total}</p>
+            <p>Fecha: {new Date(venta.fechaVenta).toLocaleDateString()}</p>
         </div>
     );
 

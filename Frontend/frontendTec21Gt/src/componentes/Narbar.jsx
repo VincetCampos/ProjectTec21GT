@@ -4,7 +4,7 @@ import logoTec21GT from "../assets/imagenes/LogoTec21GT.png"
 
 function Narbar() {
 
-    const { isAuthenticated,  isAdmin} = useAuth()
+    const { isAuthenticated, isAdmin, logout, user} = useAuth()
 
     return (
         <nav className="bg-sky-400 my-3 flex justify-between content-center py-2 px-5 rounded-lg">
@@ -13,7 +13,7 @@ function Narbar() {
                 {isAuthenticated ? (
                     <>
                         <li>
-                            Bienvenido
+                            Bienvenido {user.usuarioEmpleado}
                         </li>
                         <li>
                             <Link to='/'>Home</Link>
@@ -32,6 +32,11 @@ function Narbar() {
                                 <Link to='/Empleado'>Empleados</Link>
                             </li>
                         )}
+                        <li>
+                            <Link to="/" onClick={() => {
+                                logout()
+                            }}> Logout</Link>
+                        </li>
                     </>
                 ):(
                     <>

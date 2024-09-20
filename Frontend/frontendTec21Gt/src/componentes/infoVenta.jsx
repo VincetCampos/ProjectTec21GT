@@ -14,6 +14,7 @@ export const InfoVenta = () =>{
         precioUnitario: 0
     })
     const [detalleProducto, setDetalleProducto] = useState([])
+    const [nuevoEstado, setNuevoEstado] = useState('');
 
     useEffect( () => {
 
@@ -75,14 +76,51 @@ export const InfoVenta = () =>{
             });
         }
     }
-
+    const actualizarEstado = async () => {
+        let fetchResp = await fetch(`http://localhost:4000/ventas/actualizar/${noVenta}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ estado: nuevoEstado }),
+            credentials: 'include'
+        });
+        if (fetchResp.ok) {
+            setVentas((prevVentas) => ({
+                ...prevVentas,
+                estado: nuevoEstado
+            }));
+            alert('El estado de la venta ha sido actualizado exitosamente');
+        }
+    };
     return(
         <div>
             <h1>Venta No. {ventas.noVenta}</h1>
-            <h2>Fecha de Venta {ventas.fechaVenta}</h2>
+            <h2>Fecha de Venta {new Date(ventas.fechaVenta).toLocaleDateString()}</h2>
             <h2>Estado de la Venta {ventas.estado}</h2>
             <h2>GUI {ventas.GUI}</h2>
             <h2>Tipo de la Venta {ventas.tipoVenta}</h2>
+            <div className="mt-5">
+                <label htmlFor="estado">Actualizar Estado de la Venta</label>
+                <select
+                    id="estado"
+                    name="estado"
+                    value={nuevoEstado}
+                    onChange={(e) => setNuevoEstado(e.target.value)}
+                    className="border-2 border-b-sky-500 rounded-md"
+                >
+                    <option value="">Seleccione un estado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+                <button
+                    onClick={actualizarEstado}
+                    className="rounded-full bg-blue-500 px-2 py-2 ml-2"
+                >
+                    Actualizar Estado
+                </button>
+            </div>
 
             <div>
             <table className="min-w-full bg-white border border-gray-300">

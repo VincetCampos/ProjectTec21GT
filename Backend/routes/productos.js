@@ -65,7 +65,7 @@ router.post("/", async (req, res, next)=>{
       //ejecutamos la consulta
       const resultado = await connection.request()
                                                 .input("noProducto", sql.Int, req.params.noProducto)
-                                                .query(`Select dp.noDetalleProducto, p.nombreProducto, p.marca, p.modelo, p.descripcionExtra, dp.precio, dp.fechaIngreso, dp.cantidad From Producto as p
+                                                .query(`Select dp.noDetalleProducto, p.nombreProducto, p.marca, p.modelo, p.descripcionExtra, dp.color, dp.precio, dp.fechaIngreso, dp.cantidad From Producto as p
                                                         JOIN DetalleProducto as dp
                                                         On dp.noProducto = p.noProducto
                                                         Where p.noProducto = @noProducto`)

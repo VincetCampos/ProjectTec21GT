@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 export const CrearVentas = () => {
     const endpointVentas = "http://localhost:4000/ventas";
@@ -9,6 +10,7 @@ export const CrearVentas = () => {
         gui: "",
         tipoVenta: ""
     })
+    const navigate = useNavigate();
 
     const cambioDatos = (e) =>{
         e.preventDefault()
@@ -33,6 +35,7 @@ export const CrearVentas = () => {
         })
         let respJson = await fetchResp.json()
         console.log(respJson)
+        navigate('/Ventas')
     }
 
     return(
