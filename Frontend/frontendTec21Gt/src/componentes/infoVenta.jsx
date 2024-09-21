@@ -94,20 +94,21 @@ export const InfoVenta = () =>{
         }
     };
     return(
-        <div>
-            <h1>Venta No. {ventas.noVenta}</h1>
-            <h2>Fecha de Venta {new Date(ventas.fechaVenta).toLocaleDateString()}</h2>
-            <h2>Estado de la Venta {ventas.estado}</h2>
-            <h2>GUI {ventas.GUI}</h2>
-            <h2>Tipo de la Venta {ventas.tipoVenta}</h2>
-            <div className="mt-5">
-                <label htmlFor="estado">Actualizar Estado de la Venta</label>
+        <div className="p-5 bg-gray-100 rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold mb-2">Venta No. {ventas.noVenta}</h1>
+            <h2 className="text-lg">Fecha de Venta: <span className="font-semibold">{new Date(ventas.fechaVenta).toLocaleDateString()}</span></h2>
+            <h2 className="text-lg">Estado de la Venta: <span className="font-semibold">{ventas.estado}</span></h2>
+            <h2 className="text-lg">GUI: <span className="font-semibold">{ventas.GUI}</span></h2>
+            <h2 className="text-lg">Tipo de la Venta: <span className="font-semibold">{ventas.tipoVenta}</span></h2>
+
+            <div className="mt-5 flex items-center">
+                <label htmlFor="estado" className="mr-2">Actualizar Estado de la Venta:</label>
                 <select
                     id="estado"
                     name="estado"
                     value={nuevoEstado}
                     onChange={(e) => setNuevoEstado(e.target.value)}
-                    className="border-2 border-b-sky-500 rounded-md"
+                    className="border-2 border-b-sky-500 rounded-md p-2"
                 >
                     <option value="">Seleccione un estado</option>
                     <option value="Pendiente">Pendiente</option>
@@ -116,16 +117,16 @@ export const InfoVenta = () =>{
                 </select>
                 <button
                     onClick={actualizarEstado}
-                    className="rounded-full bg-blue-500 px-2 py-2 ml-2"
+                    className="ml-2 bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition"
                 >
                     Actualizar Estado
                 </button>
             </div>
 
-            <div>
-            <table className="min-w-full bg-white border border-gray-300">
+            <div className="mt-5">
+                <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg overflow-hidden">
                     <thead>
-                        <tr>
+                        <tr className="bg-gray-200">
                             <th className="py-2 px-4 border-b">Nombre del Producto</th>
                             <th className="py-2 px-4 border-b">Marca</th>
                             <th className="py-2 px-4 border-b">Cantidad</th>
@@ -134,7 +135,7 @@ export const InfoVenta = () =>{
                     </thead>
                     <tbody>
                         {detalleProducto.map((detalleProduct) => (
-                            <tr key={detalleProduct.noDetalleVenta}>
+                            <tr key={detalleProduct.noDetalleVenta} className="hover:bg-gray-100">
                                 <td className="py-2 px-4 border-b">{detalleProduct.nombreProducto}</td>
                                 <td className="py-2 px-4 border-b">{detalleProduct.marca}</td>
                                 <td className="py-2 px-4 border-b">{detalleProduct.cantidad}</td>
@@ -145,15 +146,15 @@ export const InfoVenta = () =>{
                 </table>
             </div>
 
-            <div>
-                <form className="flex flex-wrap border-4 space-x-5 space-y-5 ml-72 mr-72 rounded-md justify-center" onSubmit={formSubmit}>
-                    <div className="flex flex-col mt-5">
+            <div className="mt-5">
+                <form className="flex flex-wrap border-4 p-5 space-x-5 rounded-md justify-center bg-white shadow-md" onSubmit={formSubmit}>
+                    <div className="flex flex-col">
                         <label htmlFor="noProducto">Numero de Producto</label>
                         <input name="noProducto" type="text" 
                                 id="noProducto"
                                 value={detalleVenta.noProducto}
                                 onChange={cambioDatos}
-                                className="border-2 border-b-sky-500 rounded-md"/>
+                                className="border-2 border-b-sky-500 rounded-md p-2"/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="color">Color</label>
@@ -161,7 +162,7 @@ export const InfoVenta = () =>{
                                 id="color"
                                 value={detalleVenta.color}
                                 onChange={cambioDatos}
-                                className="border-2 border-b-sky-500 rounded-md"/>
+                                className="border-2 border-b-sky-500 rounded-md p-2"/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="cantidad">Cantidad</label>
@@ -169,7 +170,7 @@ export const InfoVenta = () =>{
                                 id="cantidad"
                                 value={detalleVenta.cantidad}
                                 onChange={cambioDatos}
-                                className="border-2 border-b-sky-500 rounded-md"/>
+                                className="border-2 border-b-sky-500 rounded-md p-2"/>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="precioUnitario">Precio Unitario</label>
@@ -177,9 +178,9 @@ export const InfoVenta = () =>{
                                 id="precioUnitario"
                                 value={detalleVenta.precioUnitario}
                                 onChange={cambioDatos}
-                                className="border-2 border-b-sky-500 rounded-md"/>
+                                className="border-2 border-b-sky-500 rounded-md p-2"/>
                     </div>
-                    <button className="rounded-full bg-green-500 place-self-end px-2 py-2">Crear venta</button>
+                    <button className="rounded-full bg-green-500 text-white place-self-end px-4 py-2 hover:bg-green-600 transition">Crear venta</button>
                 </form>
             </div>
         </div>

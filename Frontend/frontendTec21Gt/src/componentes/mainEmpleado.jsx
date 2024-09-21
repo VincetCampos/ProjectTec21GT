@@ -35,18 +35,22 @@ export const MainEmpleado = () => {
 
     return (
         <div>
-            <h1>Usuarios</h1>
-            <Link to="/Empleado/crearEmpleado">
-                <button>Nuevo Empleado</button>
-            </Link>
-                <table className="min-w-full bg-white border border-gray-300">
-                    <thead>
+            <div className="flex flex-col items-start mb-5">
+                <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
+                <Link to="/Empleado/crearEmpleado">
+                    <button className="bg-blue-600 text-white rounded-full px-4 py-2 shadow-md hover:bg-blue-700 transition">
+                        Nuevo Empleado
+                    </button>
+                </Link>
+            </div>
+                <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+                    <thead className="bg-gray-100">
                         <tr>
-                            <th className="py-2 px-4 border-b">Numero Empleado</th>
-                            <th className="py-2 px-4 border-b">Nombre Empleado</th>
-                            <th className="py-2 px-4 border-b">Usuario</th>
-                            <th className="py-2 px-4 border-b">Area</th>
-                            <th className="py-2 px-4 border-b">Acciones</th>
+                            <th className="py-3 px-4 border-b text-left text-gray-600 font-medium">Numero Empleado</th>
+                            <th className="py-3 px-4 border-b text-left text-gray-600 font-medium">Nombre Empleado</th>
+                            <th className="py-3 px-4 border-b text-left text-gray-600 font-medium">Usuario</th>
+                            <th className="py-3 px-4 border-b text-left text-gray-600 font-medium">Area</th>
+                            <th className="py-3 px-4 border-b text-left text-gray-600 font-medium">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,11 +62,8 @@ export const MainEmpleado = () => {
                                 <td className="py-2 px-4 border-b">{empleado.tipoEmpleado}</td>
                                 <td>
                                     <button onClick={()=>{
-                                        console.log(empleado.noEmpleado)
-                                    }}>Editar</button>
-                                    <button onClick={()=>{
                                         deleteEmpleado(empleado.noEmpleado)
-                                    }}>Borrar</button>
+                                    }} className="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-red-600 transition">Borrar</button>
                                 </td>
                             </tr>
                         ))}

@@ -40,40 +40,40 @@ export const CrearEmpleado = ()=>{
     }
 
     return(
-        <form className="flex flex-wrap border-4 space-x-5 space-y-5 ml-72 mr-72 rounded-md justify-center" onSubmit={formSubmit}>
-            <div className="flex flex-col">
-                <label className="ingresoEmpleado" htmlFor="nombreUsuario">Nombre del Empleado</label>
+        <form className="flex flex-wrap border-4 border-gray-300 p-6 rounded-md justify-center bg-white shadow-md" onSubmit={formSubmit}>
+            <div className="flex flex-col w-60 mr-4">
+                <label className="text-gray-700 mb-1" htmlFor="nombreUsuario">Nombre del Empleado</label>
                 <input name="nombreUsuario" type="text" 
                         id="nombreUsuario"
                         value={empleado.nombreUsuario}
                         onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
+                        className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
             </div>
-            <div className="flex flex-col">
-                <label className="ingresoEmpleado" htmlFor="usuarioEmpleado">Usuario del Empleado</label>
+            <div className="flex flex-col w-60 mr-4">
+                <label className="text-gray-700 mb-1" htmlFor="usuarioEmpleado">Usuario del Empleado</label>
                 <input name="usuarioEmpleado" type="text" 
                         id="usuarioEmpleado"
                         value={empleado.usuarioEmpleado}
                         onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
+                        className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
             </div>
-            <div className="flex flex-col">
-                <label className="ingresoEmpleado" htmlFor="passwordEmpleado">Contraseña del Empleado</label>
+            <div className="flex flex-col w-60 mr-4">
+                <label className="text-gray-700 mb-1" htmlFor="passwordEmpleado">Contraseña del Empleado</label>
                 <input name="passwordEmpleado" type="password" 
                         id="passwordEmpleado"
                         value={empleado.passwordEmpleado}
                         onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
+                        className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
             </div>
-            <div className="flex flex-col">
-                <label className="ingresoEmpleado" htmlFor="tipoEmpleado">Tipo del Empleado</label>
+            <div className="flex flex-col w-60 mr-4">
+                <label className="text-gray-700 mb-1" htmlFor="tipoEmpleado">Tipo del Empleado</label>
                 <input name="tipoEmpleado" type="text" 
                         id="tipoEmpleado"
                         value={empleado.tipoEmpleado}
                         onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
+                        className="border-2 border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
             </div>
-            <button className="rounded-full bg-green-500 place-self-end px-2 py-2">Guardar</button>
+            <button className="rounded-full bg-green-500 text-white px-4 py-2 mt-4 hover:bg-green-600 transition">Guardar</button>
         </form>
     )
 }

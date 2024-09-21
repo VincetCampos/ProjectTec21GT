@@ -46,73 +46,77 @@ export const Productos = ()=>{
     }
 
     return(
-        <form className="flex flex-wrap border-4 space-x-5 space-y-5 ml-72 mr-72 rounded-md justify-center" onSubmit={formSubmit}>
-            <div className="flex flex-col mt-5">
-                <label htmlFor="noProducto">Numero del Producto</label>
-                <input name="noProducto" type="text" 
-                        id="noProducto"
-                        value={producto.noProducto}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="nombreProducto">Nombre del Producto</label>
-                <input name="nombreProducto" type="text" 
-                        id="nombreProducto"
-                        value={producto.nombreProducto}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="marca">Marca</label>
-                <input name="marca" type="text" 
-                        id="marca"
-                        value={producto.marca}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="modelo">Modelo</label>
-                <input name="modelo" type="text" 
-                        id="modelo"
-                        value={producto.modelo}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="color">Color</label>
-                <input name="color" type="text" 
-                        id="color"
-                        value={producto.color}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="precio">Precio</label>
-                <input name="precio" type="text" 
-                        id="precio"
-                        value={producto.precio}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="Producto">Cantidad a Ingresar</label>
-                <input name="cantidad" type="text" 
-                        id="cantidad"
-                        value={producto.existencia}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md"/>
-            </div>
-            <br />
-            <div className="flex flex-col">
-                <label className="ingresoProducto" htmlFor="Producto">Descripcion Adicional</label>
-                <textarea name="descripcionExtra" type="text" 
-                        id="descripcionExtra"
-                        value={producto.descripcionExtra}
-                        onChange={cambioDatos}
-                        className="border-2 border-b-sky-500 rounded-md h-20 w-80"></textarea>
-            </div>
-            <button className="rounded-full bg-green-500 place-self-end px-2 py-2">Guardar</button>
-        </form>
+<form className="flex flex-wrap border-4 border-gray-300 p-10 items-center justify-center mx-auto max-w-4xl rounded-lg shadow-lg bg-white" onSubmit={formSubmit}>
+    <h2 className="text-2xl font-bold w-full text-center mb-4">Registrar Producto</h2>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="noProducto">Número del Producto</label>
+        <input name="noProducto" type="text" 
+               id="noProducto"
+               value={producto.noProducto}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="nombreProducto">Nombre del Producto</label>
+        <input name="nombreProducto" type="text" 
+               id="nombreProducto"
+               value={producto.nombreProducto}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="marca">Marca</label>
+        <input name="marca" type="text" 
+               id="marca"
+               value={producto.marca}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="modelo">Modelo</label>
+        <input name="modelo" type="text" 
+               id="modelo"
+               value={producto.modelo}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="color">Color</label>
+        <input name="color" type="text" 
+               id="color"
+               value={producto.color}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="precio">Precio</label>
+        <input name="precio" type="text" 
+               id="precio"
+               value={producto.precio}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col max-w-sm mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="cantidad">Cantidad a Ingresar</label>
+        <input name="cantidad" type="text" 
+               id="cantidad"
+               value={producto.existencia}
+               onChange={cambioDatos}
+               className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
+    </div>
+    <div className="flex flex-col md:w-1/2 mb-4 mx-2">
+        <label className="mb-2 font-semibold text-gray-700" htmlFor="descripcionExtra">Descripción Adicional</label>
+        <textarea name="descripcionExtra" type="text" 
+                  id="descripcionExtra"
+                  value={producto.descripcionExtra}
+                  onChange={cambioDatos}
+                  className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"></textarea>
+    </div>
+    <div className="flex flex-col w-full mt-5 items-end">
+        <button className="rounded-full bg-green-500 hover:bg-green-700 text-white ms-24 font-bold py-2 px-4 transition duration-300 ease-in-out mt-5">
+            Guardar
+        </button>
+    </div>
+</form>
     )
 }
