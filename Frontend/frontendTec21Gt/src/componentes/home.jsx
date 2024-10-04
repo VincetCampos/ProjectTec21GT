@@ -13,7 +13,7 @@ export const Home = () =>{
                         </Link>
                     </div>
                     <div className="container mx-auto text-center my-5">
-                        <p className="text-lg text-gray-700 mb-8">Ingresa los nuevos Productos que acaban de ingresar.</p>
+                        <p className="text-lg text-gray-700 mb-8">Ingresa los producto recien ingresados.</p>
                         <Link to="/Producto" className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">
                             Ingresar Nuevo Producto
                         </Link>
