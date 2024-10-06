@@ -1,9 +1,10 @@
 const getColorByStatus = (status) => {
+    console.log(`Estado recibido: ${status}`);
     switch (status) {
         case 'Completado':
             return 'text-green-500'; // Verde
         case 'Pendiente':
-            return 'text-blue-500'; // Azul
+            return 'text-blue-800'; // Azul
         case 'Cancelado':
             return 'text-red-500'; // Rojo
         default:

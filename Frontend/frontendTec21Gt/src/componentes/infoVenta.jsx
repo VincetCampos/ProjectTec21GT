@@ -15,6 +15,7 @@ export const InfoVenta = () =>{
     })
     const [detalleProducto, setDetalleProducto] = useState([])
     const [nuevoEstado, setNuevoEstado] = useState('');
+    const [mensaje, setMensaje] = useState('');
 
     useEffect( () => {
 
@@ -58,8 +59,14 @@ export const InfoVenta = () =>{
             body: JSON.stringify(detalleVenta),
             credentials: 'include'
         })
-        let respJson = await fetchResp.json()
-        console.log(respJson)
+        if (fetchResp.status === 404) {
+        const result = await fetchResp.json();
+        setMensaje(result.message);
+        } else if (fetchResp.ok) {
+            setMensaje('Producto ingresado correctamente');
+        } else {
+            setMensaje('Error al ingresar el producto');
+        }
 
         if (fetchResp.ok) {
             let fetchDetalleProduct = await fetch(`http://localhost:4000/productos/detalleProducto/${noVenta}`, {credentials: 'include'})
@@ -180,7 +187,8 @@ export const InfoVenta = () =>{
                                 onChange={cambioDatos}
                                 className="border-2 border-b-sky-500 rounded-md p-2"/>
                     </div>
-                    <button className="rounded-full bg-green-500 text-white place-self-end px-4 py-2 hover:bg-green-600 transition">Crear venta</button>
+                    <button className="rounded-full bg-green-500 text-white place-self-end px-4 py-2 hover:bg-green-600 transition">Ingresar producto</button>
+                    {mensaje && <p>{mensaje}</p>}
                 </form>
             </div>
         </div>

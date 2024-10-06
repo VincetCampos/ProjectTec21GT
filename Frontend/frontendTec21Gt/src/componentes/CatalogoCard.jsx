@@ -4,7 +4,7 @@ function CatalogoCard ({ producto }) {
         <div className="border-4 border-gray-300 bg-white max-w-md p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <header className="mb-4">
                 <h1 className="text-2xl font-bold text-gray-800">
-                    {producto.nombreProducto}
+                    {producto.noProducto + " " + producto.nombreProducto}
                 </h1>
             </header>
             <p className="text-gray-600 mb-2">

@@ -16,6 +16,7 @@ export const Productos = ()=>{
         descripcionExtra: "",
         cantidad: 0
     })
+    const [mensaje, setMensaje] = useState('');
 
     const cambioDatos = (e) =>{
         e.preventDefault()
@@ -29,20 +30,35 @@ export const Productos = ()=>{
     const formSubmit = async(e) => {
         e.preventDefault()
 
-        console.log(producto)
+        setMensaje('');
 
-        let fetchResp = await fetch(endpointProducto, {
-            method: "POST",
+        if (!producto.noProducto || !producto.color || !producto.precio || !producto.cantidad) {
+          setMensaje('Se necesita de al menos el numero del producto, el color, el precio y la cantidad para continuar.');
+          return;
+        }
+    
+        try {
+          const response = await fetch(endpointProducto, {
+            method: 'POST',
             headers: {
-                "Content-Type" : "application/json"
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify(producto),
-            credentials: 'include'
-        })
-        let respJson = await fetchResp.json()
-        console.log(respJson)
-
-        navigate('/Catalogo')
+            credentials: 'include',
+            body: JSON.stringify(producto)
+          });
+    
+          if (response.status === 404) {
+            const result = await response.json();
+            setMensaje(result.message);
+          } else if (response.ok) {
+            navigate('/Catalogo')
+          } else {
+            setMensaje('Error al ingresar el producto');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          setMensaje('Error al ingresar el producto');
+        }
     }
 
     return(
@@ -100,7 +116,7 @@ export const Productos = ()=>{
         <label className="mb-2 font-semibold text-gray-700" htmlFor="cantidad">Cantidad a Ingresar</label>
         <input name="cantidad" type="text" 
                id="cantidad"
-               value={producto.existencia}
+               value={producto.cantidad}
                onChange={cambioDatos}
                className="border-2 border-sky-500 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"/>
     </div>
@@ -116,6 +132,7 @@ export const Productos = ()=>{
         <button className="rounded-full bg-green-500 hover:bg-green-700 text-white ms-24 font-bold py-2 px-4 transition duration-300 ease-in-out mt-5">
             Guardar
         </button>
+        {mensaje && <p className="mt-4 text-red-500">{mensaje}</p>}
     </div>
 </form>
     )

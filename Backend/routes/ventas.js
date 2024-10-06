@@ -72,6 +72,14 @@ router.get('/', async (req, res, next) => {
     let resultado = {}
     try {
       let connection = await sql.connect(config)
+
+      const checkResult = await connection.request()
+      .input("noProducto", sql.Int, DetalleVenta.noProducto)
+      .query("SELECT noProducto FROM Producto WHERE noProducto = @noProducto");
+
+      if (checkResult.recordset.length === 0) {
+          return res.status(404).send({ message: "No se encontro el producto" });
+      }
       const result = await connection
                                     .request()
                                     .input("noVenta", sql.Int, DetalleVenta.noVenta)
